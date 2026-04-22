@@ -12,30 +12,43 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;500&family=Homemade+Apple&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&family=Homemade+Apple&display=swap" rel="stylesheet">
 
 <style>
   :root {
-    --paper:  #F6F1E4;
-    --cream:  #EFE8D5;
-    --ink:    #1A1C1E;
-    --brick:  #9B5A3C;
-    --mute:   #6A6A6A;
-    --rule:   #D6CFB8;
+    --paper:   #F6F1E4;
+    --cream:   #EFE8D5;
+    --ink:     #1A1C1E;
+    --brick:   #9B5A3C;
+    --muted:   #6A6A6A;
+    --hair:    #D6CFB8;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body {
-    font-family: 'Inter', -apple-system, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     color: var(--ink);
     background: var(--cream);
     line-height: 1.55;
     -webkit-font-smoothing: antialiased;
+    font-weight: 400;
   }
-  a { color: var(--brick); text-decoration: none; }
-  a:hover { text-decoration: underline; }
+  a { color: var(--brick); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.18s ease; }
+  a:hover { border-bottom-color: var(--brick); }
 
-  /* ===== HERO ===== */
+  /* Editorial section indexing (small number, refined) */
+  .section-index {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--brick);
+    margin-bottom: 28px;
+    font-feature-settings: "tnum" 1;
+  }
+
+  /* =================================================================
+     HERO
+     ================================================================= */
   .hero {
     min-height: 100vh;
     display: flex;
@@ -43,224 +56,272 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 60px 24px;
+    padding: 72px 24px;
     background: var(--cream);
   }
-  .hero img.logo {
+  .hero__logo {
     max-width: 720px;
-    width: 92%;
+    width: 90%;
     height: auto;
-    margin-bottom: 28px;
+    margin-bottom: 56px;
   }
-  .hero .tagline {
-    font-family: 'Cormorant Garamond', serif;
+  .hero__tagline {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 400;
     font-style: italic;
-    font-size: clamp(26px, 4vw, 42px);
+    font-size: clamp(28px, 4.2vw, 48px);
     color: var(--ink);
-    margin-bottom: 4px;
-    max-width: 680px;
-  }
-  .hero .tagline-en {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: clamp(14px, 1.8vw, 18px);
-    color: var(--mute);
-    opacity: 0.55;
-    margin-bottom: 20px;
-  }
-  .hero .rule {
-    width: 48px;
-    height: 1px;
-    background: var(--brick);
-    margin: 14px 0 20px;
-  }
-  .hero .loc {
-    font-size: 12px;
-    letter-spacing: 3.5px;
-    text-transform: uppercase;
-    color: var(--mute);
+    line-height: 1.15;
     margin-bottom: 6px;
   }
-  .hero .date {
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--brick);
+  .hero__tagline-en {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(13px, 1.4vw, 16px);
+    color: var(--muted);
+    opacity: 0.6;
+    margin-bottom: 72px;
+    letter-spacing: 0.01em;
+  }
+  .hero__address {
+    font-size: 13px;
+    color: var(--ink);
+    font-weight: 500;
+    margin-bottom: 2px;
+  }
+  .hero__launch {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 400;
   }
 
-  /* ===== LOCATION ===== */
+  /* =================================================================
+     LOCATION
+     ================================================================= */
   .location {
-    padding: 80px 24px;
+    padding: 120px 24px;
     background: var(--paper);
-    text-align: center;
   }
-  .location .container { max-width: 720px; margin: 0 auto; }
-  .location .kicker {
-    font-size: 11px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--brick);
+  .location__container {
+    max-width: 920px;
+    margin: 0 auto;
+  }
+  .location__header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .location__title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(34px, 4.6vw, 52px);
+    color: var(--ink);
+    line-height: 1.1;
     margin-bottom: 10px;
   }
-  .location h2 {
-    font-family: 'Cormorant Garamond', serif;
+  .location__subtitle {
+    font-size: 14px;
+    color: var(--muted);
     font-weight: 400;
-    font-size: clamp(32px, 4.2vw, 44px);
-    margin-bottom: 8px;
+    max-width: 520px;
+    margin: 0 auto;
   }
-  .location .sub {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 18px;
-    color: var(--mute);
-    margin-bottom: 40px;
-  }
-  .location .map {
-    aspect-ratio: 16/10;
+  .location__map {
+    aspect-ratio: 16/9;
     background: var(--cream);
-    border: 1px solid var(--rule);
     overflow: hidden;
-    margin-bottom: 0;
+    box-shadow: 0 1px 0 var(--hair), 0 30px 60px -30px rgba(26,28,30,0.08);
   }
-  .location .map iframe { width: 100%; height: 100%; border: 0; display: block; }
+  .location__map iframe { width: 100%; height: 100%; border: 0; display: block; }
 
-  /* ===== SUBSCRIBE ===== */
+  /* =================================================================
+     SUBSCRIBE
+     ================================================================= */
   .subscribe {
-    padding: 80px 24px;
-    background: var(--brick);
-    color: var(--cream);
+    padding: 120px 24px;
+    background: var(--cream);
+  }
+  .subscribe__container {
+    max-width: 480px;
+    margin: 0 auto;
     text-align: center;
   }
-  .subscribe .container { max-width: 520px; margin: 0 auto; }
-  .subscribe h2 {
+  .subscribe__title {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 400;
     font-style: italic;
-    font-size: clamp(28px, 4vw, 40px);
-    color: var(--cream);
-    margin-bottom: 14px;
-  }
-  .subscribe .blurb {
-    font-size: 14.5px;
-    color: rgba(239,232,213,0.82);
-    margin-bottom: 28px;
-  }
-  .subscribe .form {
-    background: var(--cream);
+    font-size: clamp(28px, 3.8vw, 40px);
     color: var(--ink);
-    padding: 28px;
-    border-radius: 4px;
+    margin-bottom: 10px;
   }
-  .subscribe .form input {
+  .subscribe__blurb {
+    font-size: 14.5px;
+    color: var(--muted);
+    margin-bottom: 40px;
+    max-width: 380px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .subscribe__form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: left;
+  }
+  .subscribe__form input[type="email"],
+  .subscribe__form input[type="text"] {
     width: 100%;
-    padding: 14px 16px;
+    padding: 16px 2px;
     font-family: inherit;
     font-size: 15px;
-    border: 1px solid var(--rule);
-    background: #fff;
-    margin-bottom: 12px;
+    color: var(--ink);
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--hair);
+    transition: border-color 0.18s ease;
   }
-  .subscribe .form label.gdpr {
+  .subscribe__form input:focus {
+    outline: 0;
+    border-bottom-color: var(--brick);
+  }
+  .subscribe__form input::placeholder {
+    color: var(--muted);
+    font-weight: 400;
+  }
+  .subscribe__form .gdpr {
     display: flex;
     align-items: flex-start;
     gap: 10px;
-    font-size: 11.5px;
-    text-align: left;
-    color: #3A3A3A;
-    margin-bottom: 16px;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+    margin-top: 12px;
   }
-  .subscribe .form button {
-    width: 100%;
-    padding: 14px;
+  .subscribe__form .gdpr input {
+    margin-top: 3px;
+    accent-color: var(--brick);
+  }
+  .subscribe__button {
+    margin-top: 20px;
+    padding: 16px 32px;
     background: var(--ink);
     color: var(--cream);
     border: 0;
     font-family: inherit;
     font-size: 13px;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 0.08em;
     cursor: pointer;
+    transition: background-color 0.18s ease;
   }
-  .subscribe .form button:hover { background: var(--brick); }
-  .subscribe .note {
+  .subscribe__button:hover { background: var(--brick); }
+  .subscribe__note {
     font-size: 11px;
-    color: rgba(239,232,213,0.6);
-    margin-top: 18px;
-    letter-spacing: 0.5px;
+    color: var(--muted);
+    margin-top: 24px;
+    letter-spacing: 0.02em;
   }
 
-  /* ===== FOOTER ===== */
+  /* =================================================================
+     FOOTER
+     ================================================================= */
   footer {
-    padding: 40px 24px;
-    background: var(--cream);
+    padding: 56px 24px 40px;
+    background: var(--paper);
     text-align: center;
-    font-size: 11px;
-    color: var(--mute);
-    letter-spacing: 1.5px;
+    color: var(--muted);
+    border-top: 1px solid var(--hair);
   }
-  footer .sig {
-    font-family: 'Homemade Apple', cursive;
-    font-size: 22px;
+  footer__wordmark {
+    display: inline-block;
+  }
+  footer .wordmark {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: 24px;
     color: var(--ink);
-    letter-spacing: 0;
-    line-height: 1;
-    margin-bottom: 12px;
-    text-transform: none;
+    margin-bottom: 18px;
+    letter-spacing: 0.01em;
   }
-  footer a { color: var(--brick); }
-  footer .row { margin-bottom: 4px; }
+  footer .meta {
+    font-size: 12px;
+    line-height: 1.8;
+  }
+  footer .meta div { margin-bottom: 2px; }
+  footer .meta a { color: var(--brick); }
+  footer .year {
+    margin-top: 18px;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.2em;
+  }
+
+  /* =================================================================
+     RESPONSIVE
+     ================================================================= */
+  @media (max-width: 720px) {
+    .hero { padding: 56px 20px; }
+    .hero__logo { margin-bottom: 40px; }
+    .hero__tagline-en { margin-bottom: 48px; }
+    .location { padding: 80px 20px; }
+    .subscribe { padding: 80px 20px; }
+  }
 </style>
 </head>
 <body>
 
-<!-- ===== HERO ===== -->
+<!-- ============================================================ HERO -->
 <section class="hero">
-  <img class="logo" src="./logo-horizontal.png" alt="Casas da Foz">
-  <div class="tagline">Conforto com Personalidade.</div>
-  <div class="tagline-en">Comfort with Personality.</div>
-  <div class="rule"></div>
-  <div class="loc">Rua Nova do Canal · Aveiro</div>
-  <div class="date">Lançamento 2026</div>
+  <img class="hero__logo" src="./logo-horizontal.png" alt="Casas da Foz">
+  <h1 class="hero__tagline">Conforto com Personalidade.</h1>
+  <div class="hero__tagline-en">Comfort with Personality.</div>
+  <div class="hero__address">Rua Nova do Canal · Aveiro</div>
+  <div class="hero__launch">Lançamento 2026</div>
 </section>
 
-<!-- ===== LOCATION ===== -->
+<!-- ======================================================== LOCATION -->
 <section class="location">
-  <div class="container">
-    <div class="kicker">Localização</div>
-    <h2>Rua Nova do Canal</h2>
-    <div class="sub">Aveiro · frente ao Canal de São Roque</div>
-    <div class="map">
+  <div class="location__container">
+    <div class="location__header">
+      <h2 class="location__title">Rua Nova do Canal</h2>
+      <p class="location__subtitle">Aveiro · frente ao Canal de São Roque</p>
+    </div>
+    <div class="location__map">
       <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=-8.650%2C40.645%2C-8.639%2C40.654&amp;layer=mapnik&amp;marker=40.6498%2C-8.6444" loading="lazy" title="Localização"></iframe>
     </div>
   </div>
 </section>
 
-<!-- ===== SUBSCRIBE ===== -->
+<!-- ======================================================= SUBSCRIBE -->
 <section class="subscribe" id="subscribe">
-  <div class="container">
-    <h2>Seja dos primeiros a saber</h2>
-    <p class="blurb">Inscreva-se para receber novidades em primeira mão.</p>
+  <div class="subscribe__container">
+    <h2 class="subscribe__title">Seja dos primeiros a saber</h2>
+    <p class="subscribe__blurb">Inscreva-se para receber novidades sobre o empreendimento em primeira mão.</p>
 
-    <form class="form" action="mailto:[the-email]" method="post" enctype="text/plain">
-      <input type="email" name="email" placeholder="o seu email" required>
-      <input type="text" name="nome" placeholder="o seu nome (opcional)">
+    <form class="subscribe__form" action="mailto:[the-email]" method="post" enctype="text/plain">
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="text" name="nome" placeholder="Nome (opcional)">
       <label class="gdpr">
         <input type="checkbox" required>
         <span>Aceito receber comunicações sobre o empreendimento e concordo com o tratamento dos meus dados (RGPD).</span>
       </label>
-      <button type="submit">Receber novidades</button>
+      <button type="submit" class="subscribe__button">Receber novidades</button>
     </form>
 
-    <p class="note">Sem spam. Cancele a subscrição a qualquer momento.</p>
+    <p class="subscribe__note">Sem spam. Cancele a subscrição a qualquer momento.</p>
   </div>
 </section>
 
-<!-- ===== FOOTER ===== -->
+<!-- ========================================================== FOOTER -->
 <footer>
-  <div class="sig">casas da foz</div>
-  <div class="row">Aveiro · Portugal</div>
-  <div class="row"><a href="https://instagram.com/casasdafoz.aveiro" target="_blank" rel="noopener">@casasdafoz.aveiro</a></div>
-  <div class="row" style="margin-top:14px; opacity: 0.7;">MMXXVI</div>
+  <div class="wordmark">Casas da Foz</div>
+  <div class="meta">
+    <div>Aveiro · Portugal</div>
+    <div><a href="https://instagram.com/casasdafoz.aveiro" target="_blank" rel="noopener">@casasdafoz.aveiro</a></div>
+  </div>
+  <div class="year">MMXXVI</div>
 </footer>
 
 </body>
