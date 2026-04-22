@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Casas da Foz · Rua Nova do Canal, Aveiro</title>
-<meta name="description" content="Conforto com Personalidade. Rua Nova do Canal, Aveiro. Lançamento 2026.">
+<meta name="description" content="Conforto com Personalidade. Três moradias na Rua Nova do Canal, Aveiro. 2026–2028.">
 <meta property="og:title" content="Casas da Foz">
 <meta property="og:description" content="Conforto com Personalidade. Rua Nova do Canal, Aveiro.">
 <meta property="og:image" content="./logo-horizontal.png">
@@ -12,7 +12,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&family=Homemade+Apple&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&family=Homemade+Apple&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
   :root {
@@ -20,8 +20,10 @@
     --cream:   #EFE8D5;
     --ink:     #1A1C1E;
     --brick:   #9B5A3C;
+    --cobalt:  #2D5578;
     --muted:   #6A6A6A;
     --hair:    #D6CFB8;
+    --hairInk: rgba(26,28,30,0.14);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
@@ -36,15 +38,32 @@
   a { color: var(--brick); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.18s ease; }
   a:hover { border-bottom-color: var(--brick); }
 
-  /* Editorial section indexing (small number, refined) */
-  .section-index {
-    font-family: 'Inter', sans-serif;
-    font-size: 11px;
+  /* Monospaced technical numerals for micrographic elements */
+  .mono { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace; font-feature-settings: "tnum" 1; }
+
+  /* =================================================================
+     TOP RULE — editorial hairline with tracked metadata
+     ================================================================= */
+  .top-rule {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    font-size: 10px;
     font-weight: 500;
-    color: var(--brick);
-    margin-bottom: 28px;
-    font-feature-settings: "tnum" 1;
+    letter-spacing: 0.22em;
+    color: var(--muted);
+    text-transform: uppercase;
+    background: linear-gradient(to bottom, var(--cream) 0%, var(--cream) 70%, rgba(239,232,213,0) 100%);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 50;
+    pointer-events: none;
   }
+  .top-rule__left, .top-rule__right { display: flex; gap: 18px; align-items: center; }
+  .top-rule__dot { width: 4px; height: 4px; background: var(--brick); border-radius: 50%; }
 
   /* =================================================================
      HERO
@@ -56,11 +75,12 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 72px 24px;
+    padding: 96px 24px 72px;
     background: var(--cream);
+    position: relative;
   }
   .hero__logo {
-    max-width: 720px;
+    max-width: 680px;
     width: 90%;
     height: auto;
     margin-bottom: 56px;
@@ -72,7 +92,7 @@
     font-size: clamp(28px, 4.2vw, 48px);
     color: var(--ink);
     line-height: 1.15;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
   }
   .hero__tagline-en {
     font-family: 'Cormorant Garamond', serif;
@@ -80,44 +100,102 @@
     font-weight: 300;
     font-size: clamp(13px, 1.4vw, 16px);
     color: var(--muted);
-    opacity: 0.6;
+    opacity: 0.55;
     margin-bottom: 72px;
     letter-spacing: 0.01em;
   }
-  .hero__address {
-    font-size: 13px;
-    color: var(--ink);
+  .hero__meta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .hero__meta-line {
+    font-size: 10.5px;
     font-weight: 500;
-    margin-bottom: 2px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ink);
   }
-  .hero__launch {
-    font-size: 12px;
-    color: var(--muted);
+  .hero__meta-year {
+    font-size: 11px;
     font-weight: 400;
+    letter-spacing: 0.4em;
+    color: var(--brick);
   }
+  .hero__meta-divider {
+    width: 32px;
+    height: 1px;
+    background: var(--ink);
+    opacity: 0.35;
+    margin: 4px 0;
+  }
+  .hero__scroll {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    color: var(--muted);
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+  .hero__scroll::after {
+    content: "";
+    display: block;
+    width: 1px;
+    height: 28px;
+    background: var(--muted);
+    margin: 10px auto 0;
+  }
+
+  /* =================================================================
+     SECTION HEAD — editorial index + rule
+     ================================================================= */
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--brick);
+    margin-bottom: 48px;
+  }
+  .section-head__num { font-feature-settings: "tnum" 1; }
+  .section-head__rule {
+    flex: 0 0 56px;
+    height: 1px;
+    background: var(--brick);
+    opacity: 0.4;
+  }
+  .section-head__label { color: var(--ink); opacity: 0.7; }
 
   /* =================================================================
      LOCATION
      ================================================================= */
   .location {
-    padding: 120px 24px;
+    padding: 140px 24px 120px;
     background: var(--paper);
+    border-top: 1px solid var(--hairInk);
   }
   .location__container {
-    max-width: 920px;
+    max-width: 1080px;
     margin: 0 auto;
   }
   .location__header {
     text-align: center;
-    margin-bottom: 48px;
+    margin-bottom: 64px;
   }
   .location__title {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 400;
-    font-size: clamp(34px, 4.6vw, 52px);
+    font-size: clamp(34px, 4.6vw, 54px);
     color: var(--ink);
     line-height: 1.1;
-    margin-bottom: 10px;
+    margin-bottom: 14px;
   }
   .location__subtitle {
     font-size: 14px;
@@ -125,21 +203,37 @@
     font-weight: 400;
     max-width: 520px;
     margin: 0 auto;
+    letter-spacing: 0.01em;
   }
   .location__map {
-    aspect-ratio: 16/9;
-    background: var(--cream);
+    position: relative;
+    aspect-ratio: 920 / 520;
+    background: var(--paper);
     overflow: hidden;
-    box-shadow: 0 1px 0 var(--hair), 0 30px 60px -30px rgba(26,28,30,0.08);
+    box-shadow: 0 1px 0 var(--hair), 0 40px 80px -40px rgba(26,28,30,0.12);
+    border: 1px solid var(--hairInk);
   }
-  .location__map iframe { width: 100%; height: 100%; border: 0; display: block; }
+  .location__map svg { width: 100%; height: 100%; display: block; }
+  .location__coords {
+    margin-top: 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .location__coords .coords-value { color: var(--ink); opacity: 0.75; }
 
   /* =================================================================
      SUBSCRIBE
      ================================================================= */
   .subscribe {
-    padding: 120px 24px;
+    padding: 140px 24px 120px;
     background: var(--cream);
+    border-top: 1px solid var(--hairInk);
   }
   .subscribe__container {
     max-width: 480px;
@@ -150,14 +244,14 @@
     font-family: 'Cormorant Garamond', serif;
     font-weight: 400;
     font-style: italic;
-    font-size: clamp(28px, 3.8vw, 40px);
+    font-size: clamp(28px, 3.8vw, 42px);
     color: var(--ink);
-    margin-bottom: 10px;
+    margin-bottom: 14px;
   }
   .subscribe__blurb {
     font-size: 14.5px;
     color: var(--muted);
-    margin-bottom: 40px;
+    margin-bottom: 48px;
     max-width: 380px;
     margin-left: auto;
     margin-right: auto;
@@ -165,19 +259,35 @@
   .subscribe__form {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 28px;
     text-align: left;
+  }
+  .field { position: relative; }
+  .field__label {
+    display: block;
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .field__num {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--brick);
+    margin-right: 8px;
+    font-weight: 500;
   }
   .subscribe__form input[type="email"],
   .subscribe__form input[type="text"] {
     width: 100%;
-    padding: 16px 2px;
+    padding: 10px 2px;
     font-family: inherit;
     font-size: 15px;
     color: var(--ink);
     background: transparent;
     border: 0;
-    border-bottom: 1px solid var(--hair);
+    border-bottom: 1px solid var(--hairInk);
     transition: border-color 0.18s ease;
   }
   .subscribe__form input:focus {
@@ -186,54 +296,79 @@
   }
   .subscribe__form input::placeholder {
     color: var(--muted);
+    opacity: 0.5;
     font-weight: 400;
   }
   .subscribe__form .gdpr {
     display: flex;
     align-items: flex-start;
-    gap: 10px;
-    font-size: 12px;
+    gap: 12px;
+    font-size: 11.5px;
     color: var(--muted);
-    line-height: 1.5;
-    margin-top: 12px;
+    line-height: 1.6;
+    margin-top: 8px;
   }
   .subscribe__form .gdpr input {
     margin-top: 3px;
     accent-color: var(--brick);
   }
   .subscribe__button {
-    margin-top: 20px;
-    padding: 16px 32px;
+    margin-top: 16px;
+    padding: 18px 32px;
     background: var(--ink);
     color: var(--cream);
     border: 0;
     font-family: inherit;
-    font-size: 13px;
+    font-size: 10.5px;
     font-weight: 500;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
     cursor: pointer;
     transition: background-color 0.18s ease;
   }
   .subscribe__button:hover { background: var(--brick); }
   .subscribe__note {
-    font-size: 11px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
     color: var(--muted);
-    margin-top: 24px;
-    letter-spacing: 0.02em;
+    margin-top: 32px;
+    opacity: 0.7;
   }
 
   /* =================================================================
      FOOTER
      ================================================================= */
   footer {
-    padding: 56px 24px 40px;
+    padding: 72px 24px 32px;
     background: var(--paper);
-    text-align: center;
+    border-top: 1px solid var(--hairInk);
     color: var(--muted);
-    border-top: 1px solid var(--hair);
   }
-  footer__wordmark {
-    display: inline-block;
+  footer .footer__grid {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 32px;
+    align-items: start;
+    padding-bottom: 56px;
+    border-bottom: 1px solid var(--hairInk);
+  }
+  footer .footer__left, footer .footer__right {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    line-height: 1.9;
+  }
+  footer .footer__left { text-align: left; }
+  footer .footer__right { text-align: right; }
+  footer .footer__right a { color: var(--brick); }
+  footer .footer__mark {
+    text-align: center;
   }
   footer .wordmark {
     font-family: 'Cormorant Garamond', serif;
@@ -241,68 +376,269 @@
     font-style: italic;
     font-size: 24px;
     color: var(--ink);
-    margin-bottom: 18px;
+    margin-bottom: 8px;
     letter-spacing: 0.01em;
   }
-  footer .meta {
-    font-size: 12px;
-    line-height: 1.8;
-  }
-  footer .meta div { margin-bottom: 2px; }
-  footer .meta a { color: var(--brick); }
-  footer .year {
-    margin-top: 18px;
-    font-size: 10px;
+  footer .wordmark-sub {
+    font-size: 9px;
     font-weight: 500;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
     color: var(--muted);
-    letter-spacing: 0.2em;
+  }
+  footer .footer__bottom {
+    max-width: 1080px;
+    margin: 24px auto 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--muted);
+    opacity: 0.7;
   }
 
   /* =================================================================
      RESPONSIVE
      ================================================================= */
   @media (max-width: 720px) {
-    .hero { padding: 56px 20px; }
+    .top-rule { padding: 12px 16px; font-size: 9px; letter-spacing: 0.18em; }
+    .top-rule__left, .top-rule__right { gap: 10px; }
+    .hero { padding: 72px 20px 56px; }
     .hero__logo { margin-bottom: 40px; }
     .hero__tagline-en { margin-bottom: 48px; }
-    .location { padding: 80px 20px; }
-    .subscribe { padding: 80px 20px; }
+    .location { padding: 88px 20px; }
+    .subscribe { padding: 88px 20px; }
+    .section-head__rule { flex-basis: 32px; }
+    footer .footer__grid { grid-template-columns: 1fr; text-align: center; gap: 20px; }
+    footer .footer__left, footer .footer__right { text-align: center; }
+    footer .footer__bottom { flex-direction: column; gap: 10px; }
+    .location__coords { flex-direction: column; gap: 8px; text-align: center; }
   }
 </style>
 </head>
 <body>
+
+<!-- ===================================================== TOP METADATA -->
+<div class="top-rule">
+  <div class="top-rule__left">
+    <span>Casas da Foz</span>
+    <span class="top-rule__dot"></span>
+    <span>Aveiro</span>
+  </div>
+  <div class="top-rule__right">
+    <span class="mono">40°38′54.3″N · 8°38′34.1″W</span>
+    <span class="top-rule__dot"></span>
+    <span>MMXXVI</span>
+  </div>
+</div>
 
 <!-- ============================================================ HERO -->
 <section class="hero">
   <img class="hero__logo" src="./logo-horizontal.png" alt="Casas da Foz">
   <h1 class="hero__tagline">Conforto com Personalidade.</h1>
   <div class="hero__tagline-en">Comfort with Personality.</div>
-  <div class="hero__address">Rua Nova do Canal · Aveiro</div>
-  <div class="hero__launch">Lançamento 2026</div>
+  <div class="hero__meta">
+    <div class="hero__meta-line">Rua Nova do Canal · Aveiro</div>
+    <div class="hero__meta-divider"></div>
+    <div class="hero__meta-year mono">2026 &ndash; 2028</div>
+  </div>
+  <div class="hero__scroll">Desça</div>
 </section>
 
 <!-- ======================================================== LOCATION -->
 <section class="location">
   <div class="location__container">
+
+    <div class="section-head">
+      <span class="section-head__num mono">01</span>
+      <span class="section-head__rule"></span>
+      <span class="section-head__label">Localização</span>
+    </div>
+
     <div class="location__header">
       <h2 class="location__title">Rua Nova do Canal</h2>
       <p class="location__subtitle">Aveiro · frente ao Canal de São Roque</p>
     </div>
+
     <div class="location__map">
-      <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=-8.650%2C40.645%2C-8.639%2C40.654&amp;layer=mapnik&amp;marker=40.6498%2C-8.6444" loading="lazy" title="Localização"></iframe>
+      <svg viewBox="0 0 920 520" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Localização do empreendimento Casas da Foz — Rua Nova do Canal, Aveiro">
+        <!-- Paper background -->
+        <rect width="920" height="520" fill="#F6F1E4"/>
+
+        <!-- Corner ticks (architectural plate markers) -->
+        <g stroke="#1A1C1E" stroke-width="0.75" opacity="0.4" fill="none">
+          <path d="M24 16 L24 40 M16 24 L40 24"/>
+          <path d="M896 16 L896 40 M880 24 L904 24"/>
+          <path d="M24 480 L24 504 M16 496 L40 496"/>
+          <path d="M896 480 L896 504 M880 496 L904 496"/>
+        </g>
+
+        <!-- Faint grid (engineering paper feel) -->
+        <g stroke="#1A1C1E" stroke-width="0.4" opacity="0.06">
+          <line x1="0" y1="130" x2="920" y2="130"/>
+          <line x1="0" y1="260" x2="920" y2="260"/>
+          <line x1="0" y1="390" x2="920" y2="390"/>
+          <line x1="230" y1="0" x2="230" y2="520"/>
+          <line x1="460" y1="0" x2="460" y2="520"/>
+          <line x1="690" y1="0" x2="690" y2="520"/>
+        </g>
+
+        <!-- N compass -->
+        <g transform="translate(72 72)">
+          <circle r="18" fill="none" stroke="#1A1C1E" stroke-width="0.6" opacity="0.45"/>
+          <path d="M0 -13 L4 4 L0 1 L-4 4 Z" fill="#1A1C1E" opacity="0.8"/>
+          <text x="0" y="-22" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" font-weight="500" fill="#1A1C1E" letter-spacing="0.18em">N</text>
+        </g>
+
+        <!-- Scale bar -->
+        <g transform="translate(72 460)" font-family="JetBrains Mono, monospace" font-size="8" fill="#6A6A6A" letter-spacing="0.15em">
+          <line x1="0" y1="0" x2="120" y2="0" stroke="#1A1C1E" stroke-width="0.75" opacity="0.55"/>
+          <line x1="0" y1="-4" x2="0" y2="4" stroke="#1A1C1E" stroke-width="0.75" opacity="0.55"/>
+          <line x1="60" y1="-3" x2="60" y2="3" stroke="#1A1C1E" stroke-width="0.75" opacity="0.55"/>
+          <line x1="120" y1="-4" x2="120" y2="4" stroke="#1A1C1E" stroke-width="0.75" opacity="0.55"/>
+          <text x="0" y="-9">0</text>
+          <text x="60" y="-9" text-anchor="middle">50</text>
+          <text x="120" y="-9" text-anchor="middle">100 M</text>
+        </g>
+
+        <!-- Streets (minor) -->
+        <g stroke="#1A1C1E" stroke-width="1" opacity="0.22" fill="none" stroke-linecap="round">
+          <line x1="60" y1="180" x2="860" y2="180"/>
+          <line x1="60" y1="300" x2="860" y2="300"/>
+          <line x1="160" y1="90" x2="320" y2="180"/>
+          <line x1="620" y1="180" x2="780" y2="90"/>
+          <line x1="200" y1="300" x2="160" y2="380"/>
+          <line x1="720" y1="300" x2="760" y2="380"/>
+        </g>
+
+        <!-- Rua Nova do Canal (primary) -->
+        <g>
+          <line x1="460" y1="40" x2="460" y2="380" stroke="#1A1C1E" stroke-width="2" opacity="0.65" stroke-linecap="round"/>
+          <line x1="460" y1="40" x2="460" y2="380" stroke="#F6F1E4" stroke-width="0.5" opacity="0.9"/>
+        </g>
+
+        <!-- Canal de São Roque -->
+        <g>
+          <path d="M-20 400 Q 230 378 460 393 Q 690 408 940 385" stroke="#2D5578" stroke-width="22" fill="none" opacity="0.15" stroke-linecap="round"/>
+          <path d="M-20 400 Q 230 378 460 393 Q 690 408 940 385" stroke="#2D5578" stroke-width="1" fill="none" opacity="0.5"/>
+        </g>
+
+        <!-- Cross-section reference line (engineering) -->
+        <g stroke="#9B5A3C" stroke-width="0.5" opacity="0.5" stroke-dasharray="4 3">
+          <line x1="460" y1="260" x2="760" y2="260"/>
+        </g>
+        <g font-family="JetBrains Mono, monospace" font-size="8" fill="#9B5A3C" letter-spacing="0.15em" opacity="0.8">
+          <text x="770" y="263">A &mdash; A&prime;</text>
+        </g>
+
+        <!-- Dimension: distance to canal -->
+        <g stroke="#1A1C1E" stroke-width="0.5" opacity="0.35">
+          <line x1="410" y1="260" x2="410" y2="395"/>
+          <line x1="405" y1="260" x2="415" y2="260"/>
+          <line x1="405" y1="395" x2="415" y2="395"/>
+        </g>
+        <text x="402" y="330" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="8" fill="#6A6A6A" letter-spacing="0.12em">150M</text>
+
+        <!-- Site marker: 3 rotated lots with gardens (site plan detail) -->
+        <g transform="translate(460 260) rotate(-14)">
+          <!-- Gardens (nest tone, behind) -->
+          <g fill="#6F8662" fill-opacity="0.14">
+            <rect x="-42" y="-36" width="27" height="30"/>
+            <rect x="-13.5" y="-36" width="27" height="30"/>
+            <rect x="15" y="-36" width="27" height="30"/>
+          </g>
+          <g fill="none" stroke="#1A1C1E" stroke-width="0.4" opacity="0.45">
+            <rect x="-42" y="-36" width="27" height="30"/>
+            <rect x="-13.5" y="-36" width="27" height="30"/>
+            <rect x="15" y="-36" width="27" height="30"/>
+          </g>
+
+          <!-- Houses (brick tone, street-facing) -->
+          <g fill="#9B5A3C" fill-opacity="0.42">
+            <rect x="-42" y="-6" width="27" height="14"/>
+            <rect x="-13.5" y="-6" width="27" height="14"/>
+            <rect x="15" y="-6" width="27" height="14"/>
+          </g>
+          <g fill="none" stroke="#1A1C1E" stroke-width="0.6" opacity="0.75">
+            <rect x="-42" y="-6" width="27" height="14"/>
+            <rect x="-13.5" y="-6" width="27" height="14"/>
+            <rect x="15" y="-6" width="27" height="14"/>
+          </g>
+
+          <!-- Lot numbers -->
+          <g font-family="JetBrains Mono, monospace" font-size="6" fill="#1A1C1E" opacity="0.6" text-anchor="middle" letter-spacing="0.1em">
+            <text x="-28.5" y="4.5">A</text>
+            <text x="0" y="4.5">B</text>
+            <text x="28.5" y="4.5">C</text>
+          </g>
+
+          <!-- Street edge (bolder line at bottom) -->
+          <line x1="-48" y1="10" x2="48" y2="10" stroke="#1A1C1E" stroke-width="1" opacity="0.65"/>
+        </g>
+
+        <!-- Marker crosshair ticks (precise location indicator) -->
+        <g stroke="#9B5A3C" stroke-width="0.6" opacity="0.7" fill="none">
+          <line x1="402" y1="260" x2="410" y2="260"/>
+          <line x1="510" y1="260" x2="518" y2="260"/>
+          <line x1="460" y1="200" x2="460" y2="208"/>
+          <line x1="460" y1="312" x2="460" y2="320"/>
+        </g>
+
+        <!-- Labels -->
+        <text x="476" y="120" font-family="Inter, sans-serif" font-size="9.5" font-weight="500" fill="#1A1C1E" opacity="0.75" letter-spacing="0.22em">R. NOVA DO CANAL</text>
+        <text x="70" y="440" font-family="Cormorant Garamond, serif" font-style="italic" font-size="13" fill="#2D5578" opacity="0.85">Canal de São Roque</text>
+
+        <!-- Site callout with leader line -->
+        <g stroke="#9B5A3C" stroke-width="0.5" opacity="0.55" fill="none">
+          <line x1="510" y1="234" x2="540" y2="210"/>
+        </g>
+        <g transform="translate(544 208)">
+          <text font-family="Inter, sans-serif" font-size="9.5" font-weight="500" fill="#9B5A3C" letter-spacing="0.22em">CASAS DA FOZ</text>
+          <text y="12" font-family="JetBrains Mono, monospace" font-size="7.5" fill="#6A6A6A" letter-spacing="0.14em">3 MORADIAS · N.º 120</text>
+        </g>
+
+        <!-- Bottom metadata strip -->
+        <g font-family="JetBrains Mono, monospace" font-size="8" fill="#6A6A6A" letter-spacing="0.22em">
+          <text x="260" y="497">40°38&prime;54.3&Prime;N</text>
+          <text x="460" y="497" text-anchor="middle">·</text>
+          <text x="660" y="497" text-anchor="end">8°38&prime;34.1&Prime;W</text>
+        </g>
+      </svg>
     </div>
+
+    <div class="location__coords">
+      <span class="mono coords-value">40°38′54.3″N · 8°38′34.1″W</span>
+      <span>Aveiro · Portugal</span>
+    </div>
+
   </div>
 </section>
 
 <!-- ======================================================= SUBSCRIBE -->
 <section class="subscribe" id="subscribe">
   <div class="subscribe__container">
+
+    <div class="section-head">
+      <span class="section-head__num mono">02</span>
+      <span class="section-head__rule"></span>
+      <span class="section-head__label">Subscrever</span>
+    </div>
+
     <h2 class="subscribe__title">Seja dos primeiros a saber</h2>
-    <p class="subscribe__blurb">Inscreva-se para receber novidades sobre o empreendimento em primeira mão.</p>
+    <p class="subscribe__blurb">Inscreva-se para receber novidades do empreendimento em primeira mão.</p>
 
     <form class="subscribe__form" action="mailto:[the-email]" method="post" enctype="text/plain">
-      <input type="email" name="email" placeholder="Email" required>
-      <input type="text" name="nome" placeholder="Nome (opcional)">
+      <div class="field">
+        <label class="field__label"><span class="field__num">01</span>Email</label>
+        <input type="email" name="email" placeholder="voce@exemplo.pt" required>
+      </div>
+      <div class="field">
+        <label class="field__label"><span class="field__num">02</span>Nome <span style="opacity:0.5;">(opcional)</span></label>
+        <input type="text" name="nome" placeholder="Nome próprio">
+      </div>
       <label class="gdpr">
         <input type="checkbox" required>
         <span>Aceito receber comunicações sobre o empreendimento e concordo com o tratamento dos meus dados (RGPD).</span>
@@ -310,18 +646,33 @@
       <button type="submit" class="subscribe__button">Receber novidades</button>
     </form>
 
-    <p class="subscribe__note">Sem spam. Cancele a subscrição a qualquer momento.</p>
+    <p class="subscribe__note">Sem spam · Cancele quando quiser</p>
   </div>
 </section>
 
 <!-- ========================================================== FOOTER -->
 <footer>
-  <div class="wordmark">Casas da Foz</div>
-  <div class="meta">
-    <div>Aveiro · Portugal</div>
-    <div><a href="https://instagram.com/casasdafoz.aveiro" target="_blank" rel="noopener">@casasdafoz.aveiro</a></div>
+  <div class="footer__grid">
+    <div class="footer__left">
+      Aveiro<br>
+      Portugal<br>
+      <span class="mono">40°38′54.3″N</span><br>
+      <span class="mono">8°38′34.1″W</span>
+    </div>
+    <div class="footer__mark">
+      <div class="wordmark">Casas da Foz</div>
+      <div class="wordmark-sub">Rua Nova do Canal · MMXXVI</div>
+    </div>
+    <div class="footer__right">
+      <a href="https://instagram.com/casasdafoz.aveiro" target="_blank" rel="noopener">@casasdafoz.aveiro</a><br>
+      <a href="#subscribe">Subscrever</a><br>
+      <span class="mono">2026 – 2028</span>
+    </div>
   </div>
-  <div class="year">MMXXVI</div>
+  <div class="footer__bottom">
+    <span>© MMXXVI Casas da Foz</span>
+    <span class="mono">RNC / 120 / AVR</span>
+  </div>
 </footer>
 
 </body>
